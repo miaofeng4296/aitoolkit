@@ -37,3 +37,5 @@ result.zip
 api/
 vercel.json
 requirements.txt
+
+node_modules/
