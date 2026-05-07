@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI去背景 - AI智能工具箱</title>
+    <meta name="description" content="免费在线AI去背景工具，智能识别图片主体，一键去除背景，支持更换背景色。">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 自定义样式 -->
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors">
+    <!-- 顶部导航栏 -->
+    <nav class="fixed top-0 left-0 right-0 bg-white/80 dark:bg-gray-800/80 backdrop-blur-md shadow-sm z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <a href="../index.html" class="flex items-center space-x-2">
+                    <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-blue-500 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-magic text-white text-xl"></i>
+                    </div>
+                    <span class="text-xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                        AI智能工具箱
+                    </span>
+                </a>
+                
+                <!-- 导航 -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <a href="../index.html" class="text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
+                        <i class="fas fa-home mr-1"></i>首页
+                    </a>
+                    <a href="psd-cutter.html" class="text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
+                        <i class="fas fa-cut mr-1"></i>PSD切图
+                    </a>
+                    <a href="remove-bg.html" class="text-purple-600 dark:text-purple-400 font-medium">
+                        <i class="fas fa-eraser mr-1"></i>AI去背景
+                    </a>
+                </div>
+                
+                <!-- 暗色/亮色切换 -->
+                <button id="theme-toggle" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                    <i class="fas fa-moon dark:hidden"></i>
+                    <i class="fas fa-sun hidden dark:block"></i>
+                </button>
+                
+                <!-- 移动端菜单按钮 -->
+                <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg text-gray-600 dark:text-gray-300">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- 移动端菜单 -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-800 border-t dark:border-gray-700">
+            <div class="px-4 py-3 space-y-2">
+                <a href="../index.html" class="block py-2 text-gray-600 dark:text-gray-300 hover:text-purple-600">
+                    <i class="fas fa-home mr-2"></i>首页
+                </a>
+                <a href="psd-cutter.html" class="block py-2 text-gray-600 dark:text-gray-300 hover:text-purple-600">
+                    <i class="fas fa-cut mr-2"></i>PSD切图
+                </a>
+                <a href="remove-bg.html" class="block py-2 text-purple-600 dark:text-purple-400">
+                    <i class="fas fa-eraser mr-2"></i>AI去背景
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主内容区域 -->
+    <main class="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-5xl mx-auto">
+            <!-- 页面标题 -->
+            <div class="text-center mb-8">
+                <h1 class="text-3xl sm:text-4xl font-bold mb-4">
+                    <span class="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                        AI智能去背景
+                    </span>
+                </h1>
+                <p class="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
+                    上传图片，AI自动识别主体，一键去除背景，支持更换背景色
+                </p>
+                
+                <!-- 免费额度提示 -->
+                <div class="mt-4 inline-flex items-center px-4 py-2 bg-purple-100 dark:bg-purple-900/30 rounded-full">
+                    <i class="fas fa-info-circle text-purple-600 mr-2"></i>
+                    <span class="text-sm text-purple-700 dark:text-purple-300">
+                        本月剩余免费额度：<strong id="quota-count">50</strong> 张
+                    </span>
+                </div>
+            </div>
+            
+            <!-- 上传区域 -->
+            <div id="upload-section">
+                <div id="upload-zone" class="upload-zone">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <h3>拖拽或点击上传图片</h3>
+                    <p>支持 JPG、PNG、WebP 格式</p>
+                    <p class="mt-2 text-sm">最大 10MB，建议尺寸 2000x2000 以内</p>
+                    <input type="file" id="file-input" accept="image/jpeg,image/png,image/webp" class="hidden">
+                </div>
+            </div>
+            
+            <!-- 加载状态 -->
+            <div id="loading-section" class="hidden">
+                <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-sm text-center">
+                    <div class="loading-spinner mx-auto mb-4"></div>
+                    <p class="text-gray-600 dark:text-gray-300 mb-2">AI正在处理中...</p>
+                    <p class="text-sm text-gray-400">通常需要 3-10 秒，请耐心等待</p>
+                </div>
+            </div>
+            
+            <!-- 结果区域 -->
+            <div id="result-section" class="hidden">
+                <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm">
+                    <!-- 操作按钮 -->
+                    <div class="flex flex-wrap items-center justify-center gap-4 mb-6">
+                        <button id="btn-download" class="btn-primary">
+                            <i class="fas fa-download mr-2"></i>下载透明PNG
+                        </button>
+                        <button id="btn-change-bg" class="btn-secondary">
+                            <i class="fas fa-palette mr-2"></i>更换背景色
+                        </button>
+                        <button id="btn-compare" class="btn-secondary">
+                            <i class="fas fa-columns mr-2"></i>对比视图
+                        </button>
+                        <button id="btn-new-image" class="btn-secondary">
+                            <i class="fas fa-plus mr-2"></i>处理新图片
+                        </button>
+                    </div>
+                    
+                    <!-- 预览对比 -->
+                    <div class="preview-container" id="preview-container">
+                        <div class="preview-box">
+                            <img id="original-image" src="" alt="原图">
+                            <p class="preview-label">原图</p>
+                        </div>
+                        <div class="preview-box" id="result-preview-box">
+                            <img id="result-image" src="" alt="去背景结果">
+                            <p class="preview-label">去背景结果</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 单图预览（默认） -->
+                    <div class="text-center hidden" id="single-preview-container">
+                        <div class="preview-box inline-block">
+                            <img id="single-result-image" src="" alt="去背景结果">
+                            <p class="preview-label">去背景结果（透明背景）</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 背景色选择面板 -->
+                <div id="bg-color-panel" class="hidden mt-6">
+                    <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm">
+                        <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">
+                            <i class="fas fa-palette mr-2 text-purple-600"></i>选择背景色
+                        </h3>
+                        
+                        <!-- 预设颜色 -->
+                        <div class="mb-4">
+                            <p class="text-sm text-gray-500 dark:text-gray-400 mb-3">预设颜色</p>
+                            <div class="color-picker">
+                                <div class="color-option bg-white border border-gray-300" data-color="white" title="白色"></div>
+                                <div class="color-option bg-black" data-color="black" title="黑色"></div>
+                                <div class="color-option bg-gray-200" data-color="#f3f4f6" title="浅灰色"></div>
+                                <div class="color-option bg-gray-800" data-color="#1f2937" title="深灰色"></div>
+                                <div class="color-option bg-red-500" data-color="#ef4444" title="红色"></div>
+                                <div class="color-option bg-orange-500" data-color="#f97316" title="橙色"></div>
+                                <div class="color-option bg-yellow-400" data-color="#facc15" title="黄色"></div>
+                                <div class="color-option bg-green-500" data-color="#22c55e" title="绿色"></div>
+                                <div class="color-option bg-blue-500" data-color="#3b82f6" title="蓝色"></div>
+                                <div class="color-option bg-purple-500" data-color="#a855f7" title="紫色"></div>
+                                <div class="color-option bg-pink-500" data-color="#ec4899" title="粉色"></div>
+                                <div class="color-option bg-gradient-to-br from-blue-500 to-purple-500" data-color="gradient" title="渐变"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- 自定义颜色 -->
+                        <div>
+                            <p class="text-sm text-gray-500 dark:text-gray-400 mb-3">自定义颜色</p>
+                            <div class="flex items-center gap-4">
+                                <input type="color" id="custom-color" value="#3b82f6" class="w-12 h-12 rounded-lg cursor-pointer border-0">
+                                <input type="text" id="custom-color-text" placeholder="#3b82f6" 
+                                    class="setting-select flex-1" maxlength="7">
+                                <button id="btn-apply-color" class="btn-primary">
+                                    应用
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 广告位 -->
+            <div class="mt-8">
+                <div class="ad-placeholder" data-size="728x90">
+                    <span class="text-gray-400">广告位 728x90</span>
+                </div>
+            </div>
+            
+            <!-- 使用说明 -->
+            <div class="mt-8">
+                <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm">
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">
+                        <i class="fas fa-question-circle mr-2 text-purple-600"></i>使用说明
+                    </h3>
+                    <ul class="space-y-3 text-gray-600 dark:text-gray-400">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                            <span>支持 JPG、PNG、WebP 格式的图片</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                            <span>AI自动识别图片中的主体对象，精确去除背景</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                            <span>可以下载透明PNG或选择不同背景色</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-exclamation-circle text-yellow-500 mr-3 mt-1"></i>
+                            <span>每月提供50张免费额度，请珍惜使用</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-exclamation-circle text-yellow-500 mr-3 mt-1"></i>
+                            <span>推荐使用人物、商品等主体明确的图片，效果更佳</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-100 dark:bg-gray-800 border-t dark:border-gray-700 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-gray-500 dark:text-gray-400 text-sm">
+                &copy; 2024 AI智能工具箱. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <!-- 引入脚本 -->
+    <script src="../js/main.js"></script>
+    <script src="remove-bg.js"></script>
+</body>
+</html>

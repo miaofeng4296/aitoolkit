@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI智能工具箱 - 免费在线AI工具集合</title>
+    <meta name="description" content="免费在线AI工具箱，提供PSD在线切图、AI去背景、AI换背景等实用工具，即开即用，无需注册。">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 自定义样式 -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors">
+    <!-- 顶部导航栏 -->
+    <nav class="fixed top-0 left-0 right-0 bg-white/80 dark:bg-gray-800/80 backdrop-blur-md shadow-sm z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center space-x-2">
+                    <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-blue-500 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-magic text-white text-xl"></i>
+                    </div>
+                    <span class="text-xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                        AI智能工具箱
+                    </span>
+                </div>
+                
+                <!-- 桌面端导航 -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#design-tools" class="text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
+                        <i class="fas fa-palette mr-1"></i>设计工具
+                    </a>
+                    <a href="#image-tools" class="text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
+                        <i class="fas fa-image mr-1"></i>图片工具
+                    </a>
+                    <a href="#text-tools" class="text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
+                        <i class="fas fa-pen-fancy mr-1"></i>文案工具
+                    </a>
+                </div>
+                
+                <!-- 暗色/亮色切换 -->
+                <button id="theme-toggle" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                    <i class="fas fa-moon dark:hidden"></i>
+                    <i class="fas fa-sun hidden dark:block"></i>
+                </button>
+                
+                <!-- 移动端菜单按钮 -->
+                <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg text-gray-600 dark:text-gray-300">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- 移动端菜单 -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-800 border-t dark:border-gray-700">
+            <div class="px-4 py-3 space-y-2">
+                <a href="#design-tools" class="block py-2 text-gray-600 dark:text-gray-300 hover:text-purple-600">
+                    <i class="fas fa-palette mr-2"></i>设计工具
+                </a>
+                <a href="#image-tools" class="block py-2 text-gray-600 dark:text-gray-300 hover:text-purple-600">
+                    <i class="fas fa-image mr-2"></i>图片工具
+                </a>
+                <a href="#text-tools" class="block py-2 text-gray-600 dark:text-gray-300 hover:text-purple-600">
+                    <i class="fas fa-pen-fancy mr-2"></i>文案工具
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 顶部横幅广告位 -->
+    <div class="pt-16">
+        <div class="ad-banner-top">
+            <!-- 广告位：728x90 -->
+            <div class="ad-placeholder" data-size="728x90">
+                <span class="text-gray-400">广告位 728x90</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero区域 -->
+    <section class="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto text-center">
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
+                <span class="bg-gradient-to-r from-purple-600 via-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    AI智能工具箱
+                </span>
+                <br>
+                <span class="text-gray-700 dark:text-gray-200 text-3xl sm:text-4xl lg:text-5xl">
+                    一键搞定各种需求
+                </span>
+            </h1>
+            <p class="text-lg sm:text-xl text-gray-500 dark:text-gray-400 mb-8 max-w-2xl mx-auto">
+                免费提供PSD切图、AI去背景、图片处理等多种在线工具，无需注册，即开即用
+            </p>
+            
+            <!-- 搜索框 -->
+            <div class="max-w-xl mx-auto relative">
+                <input type="text" id="search-input" placeholder="搜索工具..." 
+                    class="w-full px-6 py-4 pl-12 rounded-full border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 focus:border-purple-500 focus:outline-none transition-colors">
+                <i class="fas fa-search absolute left-5 top-1/2 -translate-y-1/2 text-gray-400"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- 主内容区域 -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+        <!-- 设计工具分类 -->
+        <section id="design-tools" class="mb-12">
+            <div class="flex items-center mb-6">
+                <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center mr-4">
+                    <i class="fas fa-palette text-white text-xl"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800 dark:text-white">设计工具</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="design-tools-list">
+                <!-- PSD在线切图 -->
+                <a href="tools/psd-cutter.html" class="tool-card bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-14 h-14 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fab fa-css3-alt text-blue-600 text-2xl"></i>
+                    </div>
+                    <div class="flex items-center gap-2 mb-2">
+                        <h3 class="text-lg font-semibold text-gray-800 dark:text-white">PSD在线切图</h3>
+                        <span class="px-2 py-0.5 text-xs font-medium bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-full">免费</span>
+                    </div>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm mb-3">在线解析PSD图层，一键导出PNG/JPG素材</p>
+                    <div class="flex items-center text-gray-400 text-sm">
+                        <i class="fas fa-users mr-1"></i>
+                        <span>12,345 人使用</span>
+                    </div>
+                </a>
+
+                <!-- AI去背景 -->
+                <a href="tools/remove-bg.html" class="tool-card bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-14 h-14 bg-purple-100 dark:bg-purple-900/30 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-eraser text-purple-600 text-2xl"></i>
+                    </div>
+                    <div class="flex items-center gap-2 mb-2">
+                        <h3 class="text-lg font-semibold text-gray-800 dark:text-white">AI去背景</h3>
+                        <span class="px-2 py-0.5 text-xs font-medium bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-full">免费</span>
+                    </div>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm mb-3">智能识别主体，一键去除图片背景</p>
+                    <div class="flex items-center text-gray-400 text-sm">
+                        <i class="fas fa-users mr-1"></i>
+                        <span>8,234 人使用</span>
+                    </div>
+                </a>
+
+                <!-- AI换背景 -->
+                <div class="tool-card bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm opacity-60 cursor-not-allowed relative overflow-hidden">
+                    <div class="absolute inset-0 flex items-center justify-center bg-white/50 dark:bg-gray-800/50 z-10">
+                        <span class="px-4 py-2 bg-purple-600 text-white text-sm rounded-full">即将上线</span>
+                    </div>
+                    <div class="w-14 h-14 bg-pink-100 dark:bg-pink-900/30 rounded-xl flex items-center justify-center mb-4">
+                        <i class="fas fa-image text-pink-600 text-2xl"></i>
+                    </div>
+                    <div class="flex items-center gap-2 mb-2">
+                        <h3 class="text-lg font-semibold text-gray-800 dark:text-white">AI换背景</h3>
+                        <span class="px-2 py-0.5 text-xs font-medium bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400 rounded-full">Coming Soon</span>
+                    </div>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm mb-3">智能更换图片背景，打造创意效果</p>
+                    <div class="flex items-center text-gray-400 text-sm">
+                        <i class="fas fa-clock mr-1"></i>
+                        <span>敬请期待</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 广告位 -->
+            <div class="mt-6">
+                <div class="ad-placeholder" data-size="728x90">
+                    <span class="text-gray-400">广告位 728x90</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 图片工具分类 -->
+        <section id="image-tools" class="mb-12">
+            <div class="flex items-center mb-6">
+                <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl flex items-center justify-center mr-4">
+                    <i class="fas fa-image text-white text-xl"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800 dark:text-white">图片工具</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- AI证件照 -->
+                <div class="tool-card bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm opacity-60 cursor-not-allowed relative overflow-hidden">
+                    <div class="absolute inset-0 flex items-center justify-center bg-white/50 dark:bg-gray-800/50 z-10">
+                        <span class="px-4 py-2 bg-purple-600 text-white text-sm rounded-full">即将上线</span>
+                    </div>
+                    <div class="w-14 h-14 bg-emerald-100 dark:bg-emerald-900/30 rounded-xl flex items-center justify-center mb-4">
+                        <i class="fas fa-id-card text-emerald-600 text-2xl"></i>
+                    </div>
+                    <div class="flex items-center gap-2 mb-2">
+                        <h3 class="text-lg font-semibold text-gray-800 dark:text-white">AI证件照</h3>
+                        <span class="px-2 py-0.5 text-xs font-medium bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400 rounded-full">Coming Soon</span>
+                    </div>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm mb-3">一键生成标准证件照，支持多种尺寸</p>
+                    <div class="flex items-center text-gray-400 text-sm">
+                        <i class="fas fa-clock mr-1"></i>
+                        <span>敬请期待</span>
+                    </div>
+                </div>
+
+                <!-- AI头像生成 -->
+                <div class="tool-card bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm opacity-60 cursor-not-allowed relative overflow-hidden">
+                    <div class="absolute inset-0 flex items-center justify-center bg-white/50 dark:bg-gray-800/50 z-10">
+                        <span class="px-4 py-2 bg-purple-600 text-white text-sm rounded-full">即将上线</span>
+                    </div>
+                    <div class="w-14 h-14 bg-orange-100 dark:bg-orange-900/30 rounded-xl flex items-center justify-center mb-4">
+                        <i class="fas fa-user-circle text-orange-600 text-2xl"></i>
+                    </div>
+                    <div class="flex items-center gap-2 mb-2">
+                        <h3 class="text-lg font-semibold text-gray-800 dark:text-white">AI头像生成</h3>
+                        <span class="px-2 py-0.5 text-xs font-medium bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400 rounded-full">Coming Soon</span>
+                    </div>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm mb-3">AI生成个性化头像，支持多种风格</p>
+                    <div class="flex items-center text-gray-400 text-sm">
+                        <i class="fas fa-clock mr-1"></i>
+                        <span>敬请期待</span>
+                    </div>
+                </div>
+
+                <!-- AI表情包 -->
+                <div class="tool-card bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm opacity-60 cursor-not-allowed relative overflow-hidden">
+                    <div class="absolute inset-0 flex items-center justify-center bg-white/50 dark:bg-gray-800/50 z-10">
+                        <span class="px-4 py-2 bg-purple-600 text-white text-sm rounded-full">即将上线</span>
+                    </div>
+                    <div class="w-14 h-14 bg-red-100 dark:bg-red-900/30 rounded-xl flex items-center justify-center mb-4">
+                        <i class="fas fa-smile-beam text-red-600 text-2xl"></i>
+                    </div>
+                    <div class="flex items-center gap-2 mb-2">
+                        <h3 class="text-lg font-semibold text-gray-800 dark:text-white">AI表情包</h3>
+                        <span class="px-2 py-0.5 text-xs font-medium bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400 rounded-full">Coming Soon</span>
+                    </div>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm mb-3">输入文字，AI生成专属表情包</p>
+                    <div class="flex items-center text-gray-400 text-sm">
+                        <i class="fas fa-clock mr-1"></i>
+                        <span>敬请期待</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 文案工具分类 -->
+        <section id="text-tools" class="mb-12">
+            <div class="flex items-center mb-6">
+                <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl flex items-center justify-center mr-4">
+                    <i class="fas fa-pen-fancy text-white text-xl"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800 dark:text-white">文案工具</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- AI文案改写 -->
+                <div class="tool-card bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm opacity-60 cursor-not-allowed relative overflow-hidden">
+                    <div class="absolute inset-0 flex items-center justify-center bg-white/50 dark:bg-gray-800/50 z-10">
+                        <span class="px-4 py-2 bg-purple-600 text-white text-sm rounded-full">即将上线</span>
+                    </div>
+                    <div class="w-14 h-14 bg-amber-100 dark:bg-amber-900/30 rounded-xl flex items-center justify-center mb-4">
+                        <i class="fas fa-sync-alt text-amber-600 text-2xl"></i>
+                    </div>
+                    <div class="flex items-center gap-2 mb-2">
+                        <h3 class="text-lg font-semibold text-gray-800 dark:text-white">AI文案改写</h3>
+                        <span class="px-2 py-0.5 text-xs font-medium bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400 rounded-full">Coming Soon</span>
+                    </div>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm mb-3">一键改写文案，优化表达方式</p>
+                    <div class="flex items-center text-gray-400 text-sm">
+                        <i class="fas fa-clock mr-1"></i>
+                        <span>敬请期待</span>
+                    </div>
+                </div>
+
+                <!-- AI润色 -->
+                <div class="tool-card bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm opacity-60 cursor-not-allowed relative overflow-hidden">
+                    <div class="absolute inset-0 flex items-center justify-center bg-white/50 dark:bg-gray-800/50 z-10">
+                        <span class="px-4 py-2 bg-purple-600 text-white text-sm rounded-full">即将上线</span>
+                    </div>
+                    <div class="w-14 h-14 bg-indigo-100 dark:bg-indigo-900/30 rounded-xl flex items-center justify-center mb-4">
+                        <i class="fas fa-spell-check text-indigo-600 text-2xl"></i>
+                    </div>
+                    <div class="flex items-center gap-2 mb-2">
+                        <h3 class="text-lg font-semibold text-gray-800 dark:text-white">AI润色</h3>
+                        <span class="px-2 py-0.5 text-xs font-medium bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400 rounded-full">Coming Soon</span>
+                    </div>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm mb-3">智能润色文章，提升文案质量</p>
+                    <div class="flex items-center text-gray-400 text-sm">
+                        <i class="fas fa-clock mr-1"></i>
+                        <span>敬请期待</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-100 dark:bg-gray-800 border-t dark:border-gray-700 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <!-- 关于我们 -->
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-blue-500 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-magic text-white text-xl"></i>
+                        </div>
+                        <span class="text-xl font-bold text-gray-800 dark:text-white">AI智能工具箱</span>
+                    </div>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm">
+                        致力于提供免费、高效的在线AI工具，让创意工作更简单。
+                    </p>
+                </div>
+                
+                <!-- 快速链接 -->
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">快速链接</h3>
+                    <ul class="space-y-2">
+                        <li><a href="tools/psd-cutter.html" class="text-gray-500 dark:text-gray-400 hover:text-purple-600 transition-colors">PSD在线切图</a></li>
+                        <li><a href="tools/remove-bg.html" class="text-gray-500 dark:text-gray-400 hover:text-purple-600 transition-colors">AI去背景</a></li>
+                        <li><a href="#design-tools" class="text-gray-500 dark:text-gray-400 hover:text-purple-600 transition-colors">设计工具</a></li>
+                        <li><a href="#image-tools" class="text-gray-500 dark:text-gray-400 hover:text-purple-600 transition-colors">图片工具</a></li>
+                    </ul>
+                </div>
+                
+                <!-- 联系我们 -->
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">联系我们</h3>
+                    <ul class="space-y-2">
+                        <li class="text-gray-500 dark:text-gray-400">
+                            <i class="fas fa-envelope mr-2"></i>contact@example.com
+                        </li>
+                        <li class="text-gray-500 dark:text-gray-400">
+                            <i class="fas fa-comments mr-2"></i>意见反馈
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- 底部广告位 -->
+            <div class="border-t dark:border-gray-700 pt-8">
+                <div class="ad-placeholder" data-size="728x90">
+                    <span class="text-gray-400">广告位 728x90</span>
+                </div>
+            </div>
+            
+            <!-- 版权 -->
+            <div class="text-center text-gray-400 text-sm mt-8">
+                <p>&copy; 2024 AI智能工具箱. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 引入脚本 -->
+    <script src="js/main.js"></script>
+</body>
+</html>
