@@ -106,7 +106,7 @@ async function handleFileUpload(file) {
         const formData = new FormData();
         formData.append('image', file);
         
-        const response = await fetch('/api/remove-bg', {
+        const response = await fetch('https://aitoolkit-six.vercel.app/api/remove-bg', {
             method: 'POST',
             body: formData
         });

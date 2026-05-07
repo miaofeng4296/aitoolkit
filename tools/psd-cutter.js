@@ -103,7 +103,7 @@ async function handleFileUpload(file) {
         const formData = new FormData();
         formData.append('file', file);
         
-        const response = await fetch('/api/psd-parse', {
+        const response = await fetch('https://aitoolkit-six.vercel.app/api/psd-parse', {
             method: 'POST',
             body: formData
         });
@@ -459,7 +459,7 @@ async function startCutting() {
         const selectedLayerIds = Array.from(selectedLayers);
         
         // 发送切图请求
-        const response = await fetch('/api/psd-parse', {
+        const response = await fetch('https://aitoolkit-six.vercel.app/api/psd-parse', {
             method: 'POST',
             body: JSON.stringify({
                 action: 'cut',
