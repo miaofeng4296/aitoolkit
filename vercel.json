@@ -12,6 +12,14 @@
       "dest": "/api/psd-parse.py"
     },
     {
+      "src": "/api/text-rewrite",
+      "dest": "/api/text-rewrite.py"
+    },
+    {
+      "src": "/api/text-polish",
+      "dest": "/api/text-polish.py"
+    },
+    {
       "src": "/(.*)",
       "dest": "/index.html"
     }
@@ -32,6 +40,22 @@
       "runtime": "python3.9",
       "memorySize": 1024,
       "maxDuration": 60
+    },
+    "api/text-rewrite.py": {
+      "runtime": "python3.9",
+      "memorySize": 512,
+      "maxDuration": 30,
+      "environment": {
+        "DEEPSEEK_API_KEY": "@deepseek-api-key"
+      }
+    },
+    "api/text-polish.py": {
+      "runtime": "python3.9",
+      "memorySize": 512,
+      "maxDuration": 30,
+      "environment": {
+        "DEEPSEEK_API_KEY": "@deepseek-api-key"
+      }
     }
   }
 }

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI证件照 - AI智能工具箱</title>
+    <meta name="description" content="免费在线AI证件照生成工具，一键去除背景、自动裁剪、支持多种证件照规格和底色。">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 自定义样式 -->
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors">
+    <!-- 顶部导航栏 -->
+    <nav class="fixed top-0 left-0 right-0 bg-white/80 dark:bg-gray-800/80 backdrop-blur-md shadow-sm z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <a href="../index.html" class="flex items-center space-x-2">
+                    <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-blue-500 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-magic text-white text-xl"></i>
+                    </div>
+                    <span class="text-xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                        AI智能工具箱
+                    </span>
+                </a>
+                
+                <!-- 导航 -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <a href="../index.html" class="text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
+                        <i class="fas fa-home mr-1"></i>首页
+                    </a>
+                    <a href="id-photo.html" class="text-purple-600 dark:text-purple-400 font-medium">
+                        <i class="fas fa-id-card mr-1"></i>AI证件照
+                    </a>
+                </div>
+                
+                <!-- 暗色/亮色切换 -->
+                <button id="theme-toggle" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                    <i class="fas fa-moon dark:hidden"></i>
+                    <i class="fas fa-sun hidden dark:block"></i>
+                </button>
+                
+                <!-- 移动端菜单按钮 -->
+                <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg text-gray-600 dark:text-gray-300">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- 移动端菜单 -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-800 border-t dark:border-gray-700">
+            <div class="px-4 py-3 space-y-2">
+                <a href="../index.html" class="block py-2 text-gray-600 dark:text-gray-300 hover:text-purple-600">
+                    <i class="fas fa-home mr-2"></i>首页
+                </a>
+                <a href="id-photo.html" class="block py-2 text-purple-600 dark:text-purple-400">
+                    <i class="fas fa-id-card mr-2"></i>AI证件照
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主内容区域 -->
+    <main class="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-5xl mx-auto">
+            <!-- 页面标题 -->
+            <div class="text-center mb-8">
+                <h1 class="text-3xl sm:text-4xl font-bold mb-4">
+                    <span class="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+                        AI智能证件照
+                    </span>
+                </h1>
+                <p class="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
+                    上传照片，AI自动处理为标准证件照，支持多种规格和底色
+                </p>
+                
+                <!-- 免费额度提示 -->
+                <div class="mt-4 inline-flex items-center px-4 py-2 bg-purple-100 dark:bg-purple-900/30 rounded-full">
+                    <i class="fas fa-info-circle text-purple-600 mr-2"></i>
+                    <span class="text-sm text-purple-700 dark:text-purple-300">
+                        本月剩余免费额度：<strong id="quota-count">50</strong> 张
+                    </span>
+                </div>
+            </div>
+            
+            <!-- 上传区域 -->
+            <div id="upload-section">
+                <div id="upload-zone" class="upload-zone">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <h3>拖拽或点击上传照片</h3>
+                    <p>支持 JPG、PNG、WebP 格式</p>
+                    <p class="mt-2 text-sm">建议上传正脸照片，效果更佳</p>
+                    <input type="file" id="file-input" accept="image/jpeg,image/png,image/webp" class="hidden">
+                </div>
+            </div>
+            
+            <!-- 加载状态 -->
+            <div id="loading-section" class="hidden">
+                <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-sm text-center">
+                    <div class="loading-spinner mx-auto mb-4"></div>
+                    <p class="text-gray-600 dark:text-gray-300 mb-2">AI正在处理中...</p>
+                    <p class="text-sm text-gray-400">正在去除背景并调整尺寸...</p>
+                </div>
+            </div>
+            
+            <!-- 设置区域 -->
+            <div id="settings-section" class="hidden mb-6">
+                <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm">
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">
+                        <i class="fas fa-cog mr-2"></i>证件照设置
+                    </h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- 尺寸选择 -->
+                        <div class="setting-group">
+                            <label class="setting-label">证件照规格</label>
+                            <select id="photo-size" class="setting-select">
+                                <option value="1寸">1寸 (25×35mm, 295×413px)</option>
+                                <option value="2寸">2寸 (35×49mm, 413×579px)</option>
+                                <option value="小2寸">小2寸 (33×48mm, 390×567px)</option>
+                                <option value="签证">签证 (33×48mm, 390×567px)</option>
+                                <option value="驾照">驾照 (22×32mm, 260×378px)</option>
+                            </select>
+                        </div>
+                        
+                        <!-- 底色选择 -->
+                        <div class="setting-group">
+                            <label class="setting-label">背景颜色</label>
+                            <div class="color-picker mt-2">
+                                <div class="color-option selected" data-color="#FFFFFF" style="background: #FFFFFF; border: 2px solid #e5e7eb;" title="白底">
+                                    <span class="text-xs text-gray-500">白</span>
+                                </div>
+                                <div class="color-option" data-color="#E53935" style="background: #E53935;" title="红底">
+                                    <span class="text-xs text-white">红</span>
+                                </div>
+                                <div class="color-option" data-color="#1E88E5" style="background: #1E88E5;" title="蓝底">
+                                    <span class="text-xs text-white">蓝</span>
+                                </div>
+                                <div class="color-option" data-color="#43A047" style="background: #43A047;" title="绿底">
+                                    <span class="text-xs text-white">绿</span>
+                                </div>
+                                <div class="color-option" data-color="#8E24AA" style="background: #8E24AA;" title="紫底">
+                                    <span class="text-xs text-white">紫</span>
+                                </div>
+                                <div class="color-option" data-color="#FFB300" style="background: #FFB300;" title="黄底">
+                                    <span class="text-xs text-white">黄</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 应用设置按钮 -->
+                    <div class="mt-6 text-center">
+                        <button id="btn-apply-settings" class="btn-primary">
+                            <i class="fas fa-check mr-2"></i>应用设置
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 结果区域 -->
+            <div id="result-section" class="hidden">
+                <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm">
+                    <!-- 操作按钮 -->
+                    <div class="flex flex-wrap items-center justify-center gap-4 mb-6">
+                        <button id="btn-download" class="btn-primary">
+                            <i class="fas fa-download mr-2"></i>下载证件照
+                        </button>
+                        <button id="btn-download-pack" class="btn-secondary">
+                            <i class="fas fa-download mr-2"></i>下载一寸×4
+                        </button>
+                        <button id="btn-new-image" class="btn-secondary">
+                            <i class="fas fa-plus mr-2"></i>处理新照片
+                        </button>
+                    </div>
+                    
+                    <!-- 预览区域 -->
+                    <div class="text-center">
+                        <div id="result-preview" class="inline-block bg-gray-200 dark:bg-gray-700 rounded-lg p-4">
+                            <img id="result-image" src="" alt="证件照预览" class="max-w-full">
+                        </div>
+                        <p class="mt-4 text-gray-500 dark:text-gray-400">
+                            <span id="result-size-text">1寸</span> - <span id="result-color-text">白底</span>
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- 广告位 -->
+                <div class="mt-6">
+                    <div class="ad-placeholder" data-size="728x90">
+                        <span class="text-gray-400">广告位 728x90</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 广告位 -->
+            <div class="mt-8">
+                <div class="ad-placeholder" data-size="728x90">
+                    <span class="text-gray-400">广告位 728x90</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-100 dark:bg-gray-800 border-t dark:border-gray-700 py-8">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-gray-500 dark:text-gray-400 text-sm">
+                © 2024 AI智能工具箱 - 免费提供高质量在线AI工具
+            </p>
+        </div>
+    </footer>
+
+    <!-- Toast 容器 -->
+    <div id="toast-container"></div>
+
+    <script src="id-photo.js"></script>
+</body>
+</html>

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI表情包生成 - AI智能工具箱</title>
+    <meta name="description" content="免费在线AI表情包生成工具，输入文字描述即可生成搞笑、可爱等各类表情包。">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 自定义样式 -->
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors">
+    <!-- 顶部导航栏 -->
+    <nav class="fixed top-0 left-0 right-0 bg-white/80 dark:bg-gray-800/80 backdrop-blur-md shadow-sm z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <a href="../index.html" class="flex items-center space-x-2">
+                    <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-blue-500 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-magic text-white text-xl"></i>
+                    </div>
+                    <span class="text-xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                        AI智能工具箱
+                    </span>
+                </a>
+                
+                <!-- 导航 -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <a href="../index.html" class="text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
+                        <i class="fas fa-home mr-1"></i>首页
+                    </a>
+                    <a href="emoji-gen.html" class="text-purple-600 dark:text-purple-400 font-medium">
+                        <i class="fas fa-smile-beam mr-1"></i>AI表情包
+                    </a>
+                </div>
+                
+                <!-- 暗色/亮色切换 -->
+                <button id="theme-toggle" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                    <i class="fas fa-moon dark:hidden"></i>
+                    <i class="fas fa-sun hidden dark:block"></i>
+                </button>
+                
+                <!-- 移动端菜单按钮 -->
+                <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg text-gray-600 dark:text-gray-300">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- 移动端菜单 -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-800 border-t dark:border-gray-700">
+            <div class="px-4 py-3 space-y-2">
+                <a href="../index.html" class="block py-2 text-gray-600 dark:text-gray-300 hover:text-purple-600">
+                    <i class="fas fa-home mr-2"></i>首页
+                </a>
+                <a href="emoji-gen.html" class="block py-2 text-purple-600 dark:text-purple-400">
+                    <i class="fas fa-smile-beam mr-2"></i>AI表情包
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主内容区域 -->
+    <main class="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <!-- 页面标题 -->
+            <div class="text-center mb-8">
+                <h1 class="text-3xl sm:text-4xl font-bold mb-4">
+                    <span class="bg-gradient-to-r from-red-600 to-pink-600 bg-clip-text text-transparent">
+                        AI智能表情包
+                    </span>
+                </h1>
+                <p class="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
+                    输入文字描述，AI即可生成独一无二的表情包，让你的聊天更有趣
+                </p>
+                
+                <!-- 免费提示 -->
+                <div class="mt-4 inline-flex items-center px-4 py-2 bg-green-100 dark:bg-green-900/30 rounded-full">
+                    <i class="fas fa-gift text-green-600 mr-2"></i>
+                    <span class="text-sm text-green-700 dark:text-green-300">
+                        完全免费，无需注册，即开即用
+                    </span>
+                </div>
+            </div>
+            
+            <!-- 生成表单 -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm mb-8">
+                <!-- 表情包模板 -->
+                <div class="mb-6">
+                    <label class="setting-label">
+                        <i class="fas fa-folder-open mr-2"></i>快速模板
+                    </label>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+                        <button class="template-btn selected" data-prompt="cute cartoon cat making a heart gesture with paws, kawaii style">
+                            <i class="fas fa-cat mr-1"></i>可爱猫咪
+                        </button>
+                        <button class="template-btn" data-prompt="funny dog with wide eyes looking surprised, cartoon meme style">
+                            <i class="fas fa-dog mr-1"></i>惊讶狗狗
+                        </button>
+                        <button class="template-btn" data-prompt="angry red-faced cartoon character yelling, meme expression">
+                            <i class="fas fa-angry mr-1"></i>愤怒表情
+                        </button>
+                        <button class="template-btn" data-prompt="cute sad puppy with big tear drops, emotional cartoon">
+                            <i class="fas fa-sad-tear mr-1"></i>伤心小狗
+                        </button>
+                        <button class="template-btn" data-prompt="happy jumping cartoon bunny, celebrating expression">
+                            <i class="fas fa-pepper-hot mr-1"></i>开心兔子
+                        </button>
+                        <button class="template-btn" data-prompt="tired exhausted person falling asleep at desk, work meme">
+                            <i class="fas fa-briefcase mr-1"></i>打工人表情
+                        </button>
+                        <button class="template-btn" data-prompt="cool sunglasses wearing cat giving thumbs up">
+                            <i class="fas fa-thumbs-up mr-1"></i>酷酷猫咪
+                        </button>
+                        <button class="template-btn" data-prompt="shocked shocked face with open mouth and wide eyes, reaction meme">
+                            <i class="fas fa-surprise mr-1"></i>震惊脸
+                        </button>
+                        <button class="template-btn" data-prompt="smirking confident cartoon character, sly expression">
+                            <i class="fas fa-smile mr-1"></i>得意表情
+                        </button>
+                        <button class="template-btn" data-prompt="crying laughing emoji, hilarious reaction face, cartoon style">
+                            <i class="fas fa-laugh mr-1"></i>笑哭表情
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 分隔线 -->
+                <div class="border-t border-gray-200 dark:border-gray-700 my-6"></div>
+                
+                <!-- 自定义描述 -->
+                <div class="mb-6">
+                    <label class="setting-label">
+                        <i class="fas fa-pen mr-2"></i>自定义描述
+                    </label>
+                    <textarea id="prompt-input" rows="3" placeholder="或者输入你想要的任何表情包描述..."
+                        class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 focus:border-purple-500 focus:outline-none resize-none"></textarea>
+                    <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                        描述越详细，生成效果越好。支持中英文。
+                    </p>
+                </div>
+                
+                <!-- 尺寸选择 -->
+                <div class="mb-6">
+                    <label class="setting-label">
+                        <i class="fas fa-expand mr-2"></i>输出尺寸
+                    </label>
+                    <div class="flex gap-3">
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="radio" name="size" value="512" checked class="accent-purple-600">
+                            <span>512×512 (正方形)</span>
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="radio" name="size" value="640" class="accent-purple-600">
+                            <span>640×640 (大图)</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- 生成按钮 -->
+                <div class="text-center">
+                    <button id="btn-generate" class="btn-primary text-lg px-8 py-4">
+                        <i class="fas fa-wand-magic-sparkles mr-2"></i>生成表情包
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 加载状态 -->
+            <div id="loading-section" class="hidden bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-sm text-center">
+                <div class="loading-spinner mx-auto mb-4"></div>
+                <p class="text-gray-600 dark:text-gray-300 mb-2">AI正在生成表情包...</p>
+                <p class="text-sm text-gray-400">通常需要 10-20 秒，请耐心等待</p>
+            </div>
+            
+            <!-- 结果区域 -->
+            <div id="result-section" class="hidden">
+                <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm">
+                    <!-- 操作按钮 -->
+                    <div class="flex flex-wrap items-center justify-center gap-4 mb-6">
+                        <button id="btn-download" class="btn-primary">
+                            <i class="fas fa-download mr-2"></i>下载表情包
+                        </button>
+                        <button id="btn-share" class="btn-secondary">
+                            <i class="fas fa-share mr-2"></i>复制链接
+                        </button>
+                        <button id="btn-regenerate" class="btn-secondary">
+                            <i class="fas fa-refresh mr-2"></i>重新生成
+                        </button>
+                    </div>
+                    
+                    <!-- 预览区域 -->
+                    <div class="text-center">
+                        <div class="inline-block bg-gray-200 dark:bg-gray-700 rounded-xl p-4">
+                            <img id="result-image" src="" alt="生成的表情包" class="max-w-full max-h-[512px] rounded-lg">
+                        </div>
+                        <p class="mt-4 text-gray-500 dark:text-gray-400">
+                            AI生成的表情包 · <span id="result-size">512×512</span>px
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- 广告位 -->
+                <div class="mt-6">
+                    <div class="ad-placeholder" data-size="728x90">
+                        <span class="text-gray-400">广告位 728x90</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 使用说明 -->
+            <div class="mt-8 bg-blue-50 dark:bg-blue-900/20 rounded-2xl p-6">
+                <h3 class="text-lg font-semibold text-blue-700 dark:text-blue-300 mb-4">
+                    <i class="fas fa-lightbulb mr-2"></i>使用技巧
+                </h3>
+                <ul class="space-y-2 text-sm text-blue-600 dark:text-blue-400">
+                    <li>• 描述越具体，生成效果越好</li>
+                    <li>• 可以指定动物、人物或抽象表情</li>
+                    <li>• 使用"meme"、"cartoon"、"kawaii"等词可以改善风格</li>
+                    <li>• 生成的表情包可直接下载使用</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-100 dark:bg-gray-800 border-t dark:border-gray-700 py-8">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-gray-500 dark:text-gray-400 text-sm">
+                © 2024 AI智能工具箱 - 免费提供高质量在线AI工具
+            </p>
+        </div>
+    </footer>
+
+    <!-- Toast 容器 -->
+    <div id="toast-container"></div>
+
+    <style>
+        .template-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 16px;
+            border-radius: 12px;
+            background: #f3f4f6;
+            color: #374151;
+            font-size: 14px;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+        
+        .dark .template-btn {
+            background: #374151;
+            color: #f3f4f6;
+        }
+        
+        .template-btn:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .template-btn.selected {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+        }
+        
+        .dark .template-btn.selected {
+            background: rgba(102, 126, 234, 0.2);
+            color: #a5b4fc;
+        }
+    </style>
+
+    <script src="emoji-gen.js"></script>
+</body>
+</html>

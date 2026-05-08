@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI头像生成 - AI智能工具箱</title>
+    <meta name="description" content="免费在线AI头像生成工具，输入描述即可生成个性化头像，支持写实、动漫、3D等多种风格。">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 自定义样式 -->
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors">
+    <!-- 顶部导航栏 -->
+    <nav class="fixed top-0 left-0 right-0 bg-white/80 dark:bg-gray-800/80 backdrop-blur-md shadow-sm z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <a href="../index.html" class="flex items-center space-x-2">
+                    <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-blue-500 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-magic text-white text-xl"></i>
+                    </div>
+                    <span class="text-xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                        AI智能工具箱
+                    </span>
+                </a>
+                
+                <!-- 导航 -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <a href="../index.html" class="text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
+                        <i class="fas fa-home mr-1"></i>首页
+                    </a>
+                    <a href="avatar-gen.html" class="text-purple-600 dark:text-purple-400 font-medium">
+                        <i class="fas fa-user-circle mr-1"></i>AI头像
+                    </a>
+                </div>
+                
+                <!-- 暗色/亮色切换 -->
+                <button id="theme-toggle" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                    <i class="fas fa-moon dark:hidden"></i>
+                    <i class="fas fa-sun hidden dark:block"></i>
+                </button>
+                
+                <!-- 移动端菜单按钮 -->
+                <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg text-gray-600 dark:text-gray-300">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- 移动端菜单 -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-800 border-t dark:border-gray-700">
+            <div class="px-4 py-3 space-y-2">
+                <a href="../index.html" class="block py-2 text-gray-600 dark:text-gray-300 hover:text-purple-600">
+                    <i class="fas fa-home mr-2"></i>首页
+                </a>
+                <a href="avatar-gen.html" class="block py-2 text-purple-600 dark:text-purple-400">
+                    <i class="fas fa-user-circle mr-2"></i>AI头像
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主内容区域 -->
+    <main class="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <!-- 页面标题 -->
+            <div class="text-center mb-8">
+                <h1 class="text-3xl sm:text-4xl font-bold mb-4">
+                    <span class="bg-gradient-to-r from-orange-600 to-amber-600 bg-clip-text text-transparent">
+                        AI智能头像生成
+                    </span>
+                </h1>
+                <p class="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
+                    输入描述文字，选择喜欢的风格，AI即可为你生成独特的头像
+                </p>
+                
+                <!-- 免费提示 -->
+                <div class="mt-4 inline-flex items-center px-4 py-2 bg-green-100 dark:bg-green-900/30 rounded-full">
+                    <i class="fas fa-gift text-green-600 mr-2"></i>
+                    <span class="text-sm text-green-700 dark:text-green-300">
+                        完全免费，无需注册，即开即用
+                    </span>
+                </div>
+            </div>
+            
+            <!-- 生成表单 -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm mb-8">
+                <!-- 风格选择 -->
+                <div class="mb-6">
+                    <label class="setting-label">
+                        <i class="fas fa-palette mr-2"></i>选择风格
+                    </label>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3" id="style-grid">
+                        <div class="style-option selected" data-style="realistic" data-prompt="realistic portrait">
+                            <div class="style-icon">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <span>写实</span>
+                        </div>
+                        <div class="style-option" data-style="anime" data-prompt="anime style portrait">
+                            <div class="style-icon">
+                                <i class="fas fa-magic"></i>
+                            </div>
+                            <span>动漫</span>
+                        </div>
+                        <div class="style-option" data-style="3d" data-prompt="3D render cartoon portrait">
+                            <div class="style-icon">
+                                <i class="fas fa-cube"></i>
+                            </div>
+                            <span>3D</span>
+                        </div>
+                        <div class="style-option" data-style="pixel" data-prompt="pixel art portrait">
+                            <div class="style-icon">
+                                <i class="fas fa-th"></i>
+                            </div>
+                            <span>像素</span>
+                        </div>
+                        <div class="style-option" data-style="watercolor" data-prompt="watercolor painting portrait">
+                            <div class="style-icon">
+                                <i class="fas fa-paint-brush"></i>
+                            </div>
+                            <span>水彩</span>
+                        </div>
+                        <div class="style-option" data-style="oil" data-prompt="oil painting portrait">
+                            <div class="style-icon">
+                                <i class="fas fa-palette"></i>
+                            </div>
+                            <span>油画</span>
+                        </div>
+                        <div class="style-option" data-style="cyberpunk" data-prompt="cyberpunk neon portrait">
+                            <div class="style-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <span>赛博朋克</span>
+                        </div>
+                        <div class="style-option" data-style="fantasy" data-prompt="fantasy magical portrait">
+                            <div class="style-icon">
+                                <i class="fas fa-hat-wizard"></i>
+                            </div>
+                            <span>奇幻</span>
+                        </div>
+                        <div class="style-option" data-style="minimalist" data-prompt="minimalist line art portrait">
+                            <div class="style-icon">
+                                <i class="fas fa-minus-circle"></i>
+                            </div>
+                            <span>极简</span>
+                        </div>
+                        <div class="style-option" data-style="vintage" data-prompt="vintage retro portrait">
+                            <div class="style-icon">
+                                <i class="fas fa-camera-retro"></i>
+                            </div>
+                            <span>复古</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 描述输入 -->
+                <div class="mb-6">
+                    <label class="setting-label">
+                        <i class="fas fa-keyboard mr-2"></i>输入描述
+                    </label>
+                    <textarea id="prompt-input" rows="3" placeholder="描述你想要的头像，例如：一个微笑的女孩，蓝色眼睛，长发..."
+                        class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 focus:border-purple-500 focus:outline-none resize-none"></textarea>
+                    <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                        描述越详细，生成效果越好。支持中英文描述。
+                    </p>
+                </div>
+                
+                <!-- 生成按钮 -->
+                <div class="text-center">
+                    <button id="btn-generate" class="btn-primary text-lg px-8 py-4">
+                        <i class="fas fa-wand-magic-sparkles mr-2"></i>生成头像
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 加载状态 -->
+            <div id="loading-section" class="hidden bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-sm text-center">
+                <div class="loading-spinner mx-auto mb-4"></div>
+                <p class="text-gray-600 dark:text-gray-300 mb-2">AI正在生成头像...</p>
+                <p class="text-sm text-gray-400">通常需要 10-20 秒，请耐心等待</p>
+            </div>
+            
+            <!-- 结果区域 -->
+            <div id="result-section" class="hidden">
+                <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm">
+                    <!-- 操作按钮 -->
+                    <div class="flex flex-wrap items-center justify-center gap-4 mb-6">
+                        <button id="btn-download" class="btn-primary">
+                            <i class="fas fa-download mr-2"></i>下载头像
+                        </button>
+                        <button id="btn-regenerate" class="btn-secondary">
+                            <i class="fas fa-refresh mr-2"></i>重新生成
+                        </button>
+                        <button id="btn-new" class="btn-secondary">
+                            <i class="fas fa-plus mr-2"></i>新头像
+                        </button>
+                    </div>
+                    
+                    <!-- 预览区域 -->
+                    <div class="text-center">
+                        <div class="inline-block bg-gray-200 dark:bg-gray-700 rounded-xl p-4">
+                            <img id="result-image" src="" alt="生成的头像" class="max-w-full max-h-[512px] rounded-lg">
+                        </div>
+                        <p class="mt-4 text-gray-500 dark:text-gray-400">
+                            <span id="result-style">写实风格</span> - 512×512px
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- 广告位 -->
+                <div class="mt-6">
+                    <div class="ad-placeholder" data-size="728x90">
+                        <span class="text-gray-400">广告位 728x90</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 快速模板 -->
+            <div class="mt-8">
+                <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">
+                    <i class="fas fa-bolt mr-2 text-yellow-500"></i>快速模板
+                </h3>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                    <button class="template-btn" data-style="anime" data-prompt="beautiful anime girl with long blue hair and sparkling eyes">
+                        动漫少女
+                    </button>
+                    <button class="template-btn" data-style="realistic" data-prompt="professional businessman portrait with kind smile">
+                        商务人士
+                    </button>
+                    <button class="template-btn" data-style="3d" data-style="3D render cute character with big eyes">
+                        3D可爱
+                    </button>
+                    <button class="template-btn" data-style="cyberpunk" data-prompt="futuristic cyberpunk warrior with neon lights">
+                        赛博战士
+                    </button>
+                    <button class="template-btn" data-style="fantasy" data-prompt="magical elf princess with golden crown">
+                        精灵公主
+                    </button>
+                    <button class="template-btn" data-style="pixel" data-prompt="retro pixel art game character">
+                        像素游戏
+                    </button>
+                    <button class="template-btn" data-style="vintage" data-prompt="vintage 1950s Hollywood glamour portrait">
+                        好莱坞复古
+                    </button>
+                    <button class="template-btn" data-style="watercolor" data-prompt="gentle watercolor painting of a person">
+                        水彩人物
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-100 dark:bg-gray-800 border-t dark:border-gray-700 py-8">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-gray-500 dark:text-gray-400 text-sm">
+                © 2024 AI智能工具箱 - 免费提供高质量在线AI工具
+            </p>
+        </div>
+    </footer>
+
+    <!-- Toast 容器 -->
+    <div id="toast-container"></div>
+
+    <style>
+        .style-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 12px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #f3f4f6;
+            border: 2px solid transparent;
+        }
+        
+        .dark .style-option {
+            background: #374151;
+        }
+        
+        .style-option:hover {
+            transform: translateY(-2px);
+        }
+        
+        .style-option.selected {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+        }
+        
+        .style-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(102, 126, 234, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+            color: #667eea;
+        }
+        
+        .style-option span {
+            font-size: 14px;
+            color: #374151;
+        }
+        
+        .dark .style-option span {
+            color: #f3f4f6;
+        }
+        
+        .template-btn {
+            padding: 10px 16px;
+            border-radius: 8px;
+            background: #f3f4f6;
+            color: #374151;
+            font-size: 14px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .dark .template-btn {
+            background: #374151;
+            color: #f3f4f6;
+        }
+        
+        .template-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+    </style>
+
+    <script src="avatar-gen.js"></script>
+</body>
+</html>

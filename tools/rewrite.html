@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI文案改写 - AI智能工具箱</title>
+    <meta name="description" content="免费在线AI文案改写工具，一键将文案改写为不同风格，口语化、正式、创意等模式任选。">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 自定义样式 -->
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors">
+    <!-- 顶部导航栏 -->
+    <nav class="fixed top-0 left-0 right-0 bg-white/80 dark:bg-gray-800/80 backdrop-blur-md shadow-sm z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <a href="../index.html" class="flex items-center space-x-2">
+                    <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-blue-500 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-magic text-white text-xl"></i>
+                    </div>
+                    <span class="text-xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                        AI智能工具箱
+                    </span>
+                </a>
+                
+                <!-- 导航 -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <a href="../index.html" class="text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
+                        <i class="fas fa-home mr-1"></i>首页
+                    </a>
+                    <a href="rewrite.html" class="text-purple-600 dark:text-purple-400 font-medium">
+                        <i class="fas fa-sync-alt mr-1"></i>AI改写
+                    </a>
+                    <a href="polish.html" class="text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
+                        <i class="fas fa-spell-check mr-1"></i>AI润色
+                    </a>
+                </div>
+                
+                <!-- 暗色/亮色切换 -->
+                <button id="theme-toggle" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                    <i class="fas fa-moon dark:hidden"></i>
+                    <i class="fas fa-sun hidden dark:block"></i>
+                </button>
+                
+                <!-- 移动端菜单按钮 -->
+                <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg text-gray-600 dark:text-gray-300">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- 移动端菜单 -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-800 border-t dark:border-gray-700">
+            <div class="px-4 py-3 space-y-2">
+                <a href="../index.html" class="block py-2 text-gray-600 dark:text-gray-300 hover:text-purple-600">
+                    <i class="fas fa-home mr-2"></i>首页
+                </a>
+                <a href="rewrite.html" class="block py-2 text-purple-600 dark:text-purple-400">
+                    <i class="fas fa-sync-alt mr-2"></i>AI改写
+                </a>
+                <a href="polish.html" class="block py-2 text-gray-600 dark:text-gray-300 hover:text-purple-600">
+                    <i class="fas fa-spell-check mr-2"></i>AI润色
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主内容区域 -->
+    <main class="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-5xl mx-auto">
+            <!-- 页面标题 -->
+            <div class="text-center mb-8">
+                <h1 class="text-3xl sm:text-4xl font-bold mb-4">
+                    <span class="bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
+                        AI智能文案改写
+                    </span>
+                </h1>
+                <p class="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
+                    输入原文，选择改写风格，AI一键将文案改写成新版本
+                </p>
+                
+                <!-- 免费提示 -->
+                <div class="mt-4 inline-flex items-center px-4 py-2 bg-green-100 dark:bg-green-900/30 rounded-full">
+                    <i class="fas fa-gift text-green-600 mr-2"></i>
+                    <span class="text-sm text-green-700 dark:text-green-300">
+                        每天免费使用 20 次
+                    </span>
+                </div>
+            </div>
+            
+            <!-- 主工具区域 -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- 左侧：输入 -->
+                <div class="lg:col-span-1">
+                    <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm h-full">
+                        <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">
+                            <i class="fas fa-edit mr-2 text-amber-500"></i>原文输入
+                        </h3>
+                        
+                        <textarea id="input-text" rows="10" placeholder="输入需要改写的文案..."
+                            class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 focus:border-purple-500 focus:outline-none resize-none"></textarea>
+                        
+                        <div class="mt-4 flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
+                            <span id="char-count">0</span> / 2000 字
+                        </div>
+                        
+                        <!-- 改写模式选择 -->
+                        <div class="mt-6">
+                            <label class="setting-label">
+                                <i class="fas fa-sliders-h mr-2"></i>改写模式
+                            </label>
+                            <div class="space-y-2">
+                                <label class="flex items-center gap-3 p-3 rounded-xl bg-gray-50 dark:bg-gray-700 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                                    <input type="radio" name="rewrite-mode" value="colloquial" checked class="accent-purple-600">
+                                    <div>
+                                        <span class="font-medium text-gray-700 dark:text-gray-200">口语化</span>
+                                        <p class="text-xs text-gray-500">将正式文案转为轻松口语风格</p>
+                                    </div>
+                                </label>
+                                <label class="flex items-center gap-3 p-3 rounded-xl bg-gray-50 dark:bg-gray-700 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                                    <input type="radio" name="rewrite-mode" value="formal" class="accent-purple-600">
+                                    <div>
+                                        <span class="font-medium text-gray-700 dark:text-gray-200">正式</span>
+                                        <p class="text-xs text-gray-500">将口语化文案转为正式商务风格</p>
+                                    </div>
+                                </label>
+                                <label class="flex items-center gap-3 p-3 rounded-xl bg-gray-50 dark:bg-gray-700 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                                    <input type="radio" name="rewrite-mode" value="creative" class="accent-purple-600">
+                                    <div>
+                                        <span class="font-medium text-gray-700 dark:text-gray-200">创意</span>
+                                        <p class="text-xs text-gray-500">用更有创意的表达方式改写</p>
+                                    </div>
+                                </label>
+                                <label class="flex items-center gap-3 p-3 rounded-xl bg-gray-50 dark:bg-gray-700 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                                    <input type="radio" name="rewrite-mode" value="simplify" class="accent-purple-600">
+                                    <div>
+                                        <span class="font-medium text-gray-700 dark:text-gray-200">简化</span>
+                                        <p class="text-xs text-gray-500">精简文案，去除冗余</p>
+                                    </div>
+                                </label>
+                                <label class="flex items-center gap-3 p-3 rounded-xl bg-gray-50 dark:bg-gray-700 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                                    <input type="radio" name="rewrite-mode" value="expand" class="accent-purple-600">
+                                    <div>
+                                        <span class="font-medium text-gray-700 dark:text-gray-200">扩展</span>
+                                        <p class="text-xs text-gray-500">丰富内容，增加细节描写</p>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <button id="btn-rewrite" class="btn-primary w-full mt-6 text-lg">
+                            <i class="fas fa-wand-magic-sparkles mr-2"></i>开始改写
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 右侧：输出 -->
+                <div class="lg:col-span-2">
+                    <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm h-full">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-white">
+                                <i class="fas fa-magic mr-2 text-amber-500"></i>改写结果
+                            </h3>
+                            <button id="btn-copy" class="btn-secondary text-sm hidden">
+                                <i class="fas fa-copy mr-1"></i>复制结果
+                            </button>
+                        </div>
+                        
+                        <!-- 加载状态 -->
+                        <div id="loading-section" class="hidden">
+                            <div class="flex items-center justify-center py-12">
+                                <div class="loading-spinner mr-4"></div>
+                                <span class="text-gray-500 dark:text-gray-400">AI正在改写中...</span>
+                            </div>
+                        </div>
+                        
+                        <!-- 输出区域 -->
+                        <div id="output-section">
+                            <div id="result-placeholder" class="flex flex-col items-center justify-center py-16 text-gray-400">
+                                <i class="fas fa-pen-fancy text-6xl mb-4 opacity-30"></i>
+                                <p>改写结果将显示在这里</p>
+                            </div>
+                            
+                            <div id="result-content" class="hidden">
+                                <div id="result-text" class="prose dark:prose-invert max-w-none min-h-[300px] px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-200 whitespace-pre-wrap leading-relaxed"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 广告位 -->
+            <div class="mt-8">
+                <div class="ad-placeholder" data-size="728x90">
+                    <span class="text-gray-400">广告位 728x90</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-100 dark:bg-gray-800 border-t dark:border-gray-700 py-8">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-gray-500 dark:text-gray-400 text-sm">
+                © 2024 AI智能工具箱 - 免费提供高质量在线AI工具
+            </p>
+        </div>
+    </footer>
+
+    <!-- Toast 容器 -->
+    <div id="toast-container"></div>
+
+    <script src="rewrite.js"></script>
+</body>
+</html>
