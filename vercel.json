@@ -24,38 +24,5 @@
       "dest": "/index.html"
     }
   ],
-  "installCommand": "pip install -r requirements.txt",
-  "build": {
-    "env": {
-      "PYTHONPATH": "."
-    }
-  },
-  "functions": {
-    "api/remove-bg.py": {
-      "runtime": "python3.9",
-      "memorySize": 1024,
-      "maxDuration": 30
-    },
-    "api/psd-parse.py": {
-      "runtime": "python3.9",
-      "memorySize": 1024,
-      "maxDuration": 60
-    },
-    "api/text-rewrite.py": {
-      "runtime": "python3.9",
-      "memorySize": 512,
-      "maxDuration": 30,
-      "environment": {
-        "DEEPSEEK_API_KEY": "@deepseek-api-key"
-      }
-    },
-    "api/text-polish.py": {
-      "runtime": "python3.9",
-      "memorySize": 512,
-      "maxDuration": 30,
-      "environment": {
-        "DEEPSEEK_API_KEY": "@deepseek-api-key"
-      }
-    }
-  }
+  "installCommand": "pip install -r requirements.txt"
 }
