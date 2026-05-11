@@ -89,6 +89,25 @@ def handler(request):
             'body': ''
         }
     
+    # 处理GET请求，返回使用说明
+    if request.method == 'GET':
+        return {
+            'statusCode': 200,
+            'headers': headers,
+            'body': json.dumps({
+                'name': 'AI润色 API',
+                'method': 'POST',
+                'params': {
+                    'text': '需要润色的原文（必填）',
+                    'mode': '润色风格: academic/business/literary/daily（默认academic）'
+                },
+                'example': {
+                    'text': '这个产品非常好用',
+                    'mode': 'business'
+                }
+            }, ensure_ascii=False, indent=2)
+        }
+    
     # 只处理POST请求
     if request.method != 'POST':
         return {

@@ -63,6 +63,25 @@ def handler(request):
             'body': ''
         }
     
+    # 处理GET请求，返回使用说明
+    if request.method == 'GET':
+        return {
+            'statusCode': 200,
+            'headers': headers,
+            'body': json.dumps({
+                'name': 'AI文案改写 API',
+                'method': 'POST',
+                'params': {
+                    'text': '需要改写的原文（必填）',
+                    'mode': '改写模式: colloquial/formal/creative/simplify/expand'
+                },
+                'example': {
+                    'text': '这个产品非常好用',
+                    'mode': 'creative'
+                }
+            }, ensure_ascii=False, indent=2)
+        }
+    
     # 只处理POST请求
     if request.method != 'POST':
         return {

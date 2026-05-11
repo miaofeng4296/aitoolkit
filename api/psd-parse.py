@@ -49,6 +49,25 @@ def handler(request):
         - padding: 内边距
     """
     
+    # 处理GET请求，返回使用说明
+    if request.method == 'GET':
+        return {
+            'statusCode': 200,
+            'body': json.dumps({
+                'name': 'PSD解析和切图 API',
+                'method': 'POST (multipart/form-data)',
+                'params': {
+                    'action': 'parse 或 cut',
+                    'fileName': 'PSD文件名',
+                    'file': 'PSD文件',
+                    'selectedLayers': '选中的图层列表（cut模式时）',
+                    'settings': '切图设置'
+                },
+                'note': '使用 psd-tools 解析PSD，Vercel部署需安装依赖'
+            }, ensure_ascii=False, indent=2),
+            'headers': {'Content-Type': 'application/json'}
+        }
+    
     # 只处理POST请求
     if request.method != 'POST':
         return {

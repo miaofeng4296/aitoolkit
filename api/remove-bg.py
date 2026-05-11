@@ -28,6 +28,21 @@ def handler(request):
     - 失败: JSON错误信息
     """
     
+    # 处理GET请求，返回使用说明
+    if request.method == 'GET':
+        return {
+            'statusCode': 200,
+            'body': json.dumps({
+                'name': 'AI去背景 API',
+                'method': 'POST (multipart/form-data)',
+                'params': {
+                    'image': '上传的图片文件（必填，最大10MB）'
+                },
+                'note': '使用 remove.bg API，需配置 REMOVE_BG_API_KEY'
+            }, ensure_ascii=False, indent=2),
+            'headers': {'Content-Type': 'application/json'}
+        }
+    
     # 只处理POST请求
     if request.method != 'POST':
         return {
