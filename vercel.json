@@ -2,15 +2,26 @@
   "framework": null,
   "buildCommand": null,
   "devCommand": null,
-  "routes": [
+  "headers": [
     {
-      "src": "/api/(.*)",
-      "headers": {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type"
-      }
-    },
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET, POST, OPTIONS"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Content-Type"
+        }
+      ]
+    }
+  ],
+  "routes": [
     {
       "src": "/api/remove-bg",
       "dest": "/api/remove-bg.py"
